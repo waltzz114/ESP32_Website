@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>ESP32 IR Sensor</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
+
+        #answer {
+            font-size: 100px;
+            font-weight: bold;
+        }
+
+        #sensorValue {
+            font-size: 25px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1>IR SENSOR</h1>
+
+    <div id="answer">YES</div>
+
+    <div id="sensorValue">
+        Sensor value: 1
+    </div>
+
+
+    <script>
+
+        async function updateWebsite() {
+
+            const response = await fetch("/value");
+
+            const data = await response.json();
+
+            const value = data.value;
+
+
+            document.getElementById("sensorValue").innerText =
+                "Sensor value: " + value;
+
+
+            if (value == 0) {
+
+                document.getElementById("answer").innerText =
+                    "NO";
+
+            } else {
+
+                document.getElementById("answer").innerText =
+                    "YES";
+
+            }
+
+        }
+
+
+        updateWebsite();
+
+
+        setInterval(updateWebsite, 500);
+
+    </script>
+
+</body>
+
+</html>
